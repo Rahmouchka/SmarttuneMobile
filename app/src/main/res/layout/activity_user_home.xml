@@ -36,24 +36,42 @@
             android:src="@drawable/ic_smarttune_logo"
             android:contentDescription="SmartTune" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SmartTune"
-            android:textColor="#FF6B6B"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:layout_marginStart="12dp"
-            android:fontFamily="sans-serif-medium" />
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
 
-        <ImageView
-            android:id="@+id/iv_profile"
-            android:layout_width="36dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bienvenue dans SmartTune,cher(e) "
+                android:textColor="#EEA94A"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Utilisateur"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:src="@drawable/ic_profile"
-            android:contentDescription="Profil"
-            android:background="@drawable/circle_profile_bg" />
+            android:text="Déconnexion"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@drawable/btn_logout_background" />
+
     </LinearLayout>
 
     <!-- Titre de bienvenue -->
@@ -61,7 +79,7 @@
         android:id="@+id/tv_welcome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Découvrez votre musique"
+        android:text="Découvrez votre musique!"
         android:textColor="#FFFFFF"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -257,7 +275,7 @@
                     android:layout_height="wrap_content"
                     android:text="Bibliothèque"
                     android:textColor="#888888"
-                    android:textSize="11sp"
+                    android:textSize="14sp"
                     android:layout_marginTop="4dp" />
             </LinearLayout>
 

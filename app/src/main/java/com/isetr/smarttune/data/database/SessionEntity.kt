@@ -8,6 +8,8 @@ data class SessionEntity(
     @PrimaryKey
     val id: Int = 1, // Une seule session actuelle
     val userId: Long,
+    val username: String,
+    val email: String,
     val userRole: String // "USER", "ARTIST", "ADMIN"
 )
 

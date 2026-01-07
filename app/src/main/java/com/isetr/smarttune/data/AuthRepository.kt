@@ -32,9 +32,11 @@ class AuthRepository(context: Context) {
             if (response.isSuccessful && response.body() != null) {
                 val user = response.body()!!
 
-                // Sauvegarder la session (userId + userRole)
+                // Sauvegarder la session (userId + userRole + username + email)
                 val session = SessionEntity(
                     userId = user.id,
+                    username = user.username,
+                    email = user.email,
                     userRole = user.role
                 )
                 sessionDao.saveSession(session)
@@ -93,6 +95,8 @@ class AuthRepository(context: Context) {
                 // Sauvegarder la session
                 val session = SessionEntity(
                     userId = user.id,
+                    username = user.username,
+                    email = user.email,
                     userRole = user.role
                 )
                 sessionDao.saveSession(session)
