@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="#1A1A3E"
+    app:cardElevation="6dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp">
+
+        <!-- Icône Playlist -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#2A2A5E"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_library"
+                app:tint="#FF6B6B" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Infos Playlist -->
+        <LinearLayout
+            android:id="@+id/ll_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="@id/card_icon"
+            app:layout_constraintBottom_toBottomOf="@id/card_icon"
+            app:layout_constraintStart_toEndOf="@id/card_icon"
+            app:layout_constraintEnd_toStartOf="@id/btn_more">
+
+            <TextView
+                android:id="@+id/tv_playlist_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ma Playlist"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_playlist_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0 chansons"
+                android:textColor="#888888"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <!-- Bouton Plus -->
+        <ImageView
+            android:id="@+id/btn_more"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_more_vert"
+            android:contentDescription="Options"
+            app:tint="#888888"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
+

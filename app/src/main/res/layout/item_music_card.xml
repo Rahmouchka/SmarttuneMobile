@@ -113,8 +113,34 @@
             app:tint="#FF6B6B"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_favorite"
+            android:layout_marginEnd="4dp" />
+
+        <!-- Bouton Favoris -->
+        <ImageView
+            android:id="@+id/btn_favorite"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_favorite_border"
+            android:contentDescription="Favoris"
+            app:tint="#888888"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_add_to_playlist"
+            android:layout_marginEnd="4dp" />
+
+        <!-- Bouton Ajouter à Playlist -->
+        <ImageView
+            android:id="@+id/btn_add_to_playlist"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_input_add"
+            android:contentDescription="Ajouter à playlist"
+            app:tint="#00D9FF"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_more"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="4dp" />
 
         <!-- Bouton More -->
         <ImageView

@@ -67,4 +67,10 @@ object RetrofitClient {
 
     fun getChansonApi() =
         getRetrofitInstance().create(ChansonApi::class.java)
+
+    fun getFavorisApi() =
+        getRetrofitInstance().create(FavorisApi::class.java)
+
+    fun getPlaylistApi() =
+        getRetrofitInstance().create(PlaylistApi::class.java)
 }

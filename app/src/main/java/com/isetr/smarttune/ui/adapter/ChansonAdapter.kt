@@ -3,6 +3,7 @@ package com.isetr.smarttune.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.isetr.smarttune.R
 import com.isetr.smarttune.data.dto.ChansonResponse
 import com.isetr.smarttune.databinding.ItemMusicCardBinding
 
@@ -10,15 +11,18 @@ class ChansonAdapter(
     private val chansons: MutableList<ChansonResponse> = mutableListOf(),
     private val onPlayClick: (ChansonResponse) -> Unit = {},
     private val onPauseClick: (ChansonResponse) -> Unit = {},
+    private val onFavoriteClick: (ChansonResponse) -> Unit = {},
+    private val onAddToPlaylistClick: (ChansonResponse) -> Unit = {},
 ) : RecyclerView.Adapter<ChansonAdapter.ChansonViewHolder>() {
 
     private var currentPlayingId: Long? = null
     private var isCurrentlyPlaying: Boolean = false
+    private var favoriteIds: Set<Long> = emptySet()
 
     inner class ChansonViewHolder(private val binding: ItemMusicCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(chanson: ChansonResponse, isPlaying: Boolean, isPaused: Boolean) {
+        fun bind(chanson: ChansonResponse, isPlaying: Boolean, isPaused: Boolean, isFavorite: Boolean) {
             binding.tvTitle.text = chanson.titre
 
             // Afficher "Single" si pas d'album
@@ -26,6 +30,9 @@ class ChansonAdapter(
 
             // Mettre à jour l'icône du bouton play selon l'état
             updatePlayButtonIcon(binding, chanson.id, isPlaying, isPaused)
+
+            // Mettre à jour l'icône du bouton favoris
+            updateFavoriteIcon(binding, isFavorite)
 
             // Bouton play/pause
             binding.btnPlay.setOnClickListener {
@@ -43,6 +50,16 @@ class ChansonAdapter(
                     notifyDataSetChanged()
                     onPlayClick(chanson)
                 }
+            }
+
+            // Bouton favoris
+            binding.btnFavorite.setOnClickListener {
+                onFavoriteClick(chanson)
+            }
+
+            // Bouton ajouter à playlist
+            binding.btnAddToPlaylist.setOnClickListener {
+                onAddToPlaylistClick(chanson)
             }
         }
 
@@ -73,6 +90,16 @@ class ChansonAdapter(
                 }
             }
         }
+
+        private fun updateFavoriteIcon(binding: ItemMusicCardBinding, isFavorite: Boolean) {
+            if (isFavorite) {
+                binding.btnFavorite.setImageResource(R.drawable.ic_favorite)
+                binding.btnFavorite.setColorFilter(0xFFFF6B6B.toInt())
+            } else {
+                binding.btnFavorite.setImageResource(R.drawable.ic_favorite_border)
+                binding.btnFavorite.setColorFilter(0xFF888888.toInt())
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChansonViewHolder {
@@ -88,7 +115,8 @@ class ChansonAdapter(
         val chanson = chansons[position]
         val isPlaying = chanson.id == currentPlayingId
         val isPaused = isPlaying && !isCurrentlyPlaying
-        holder.bind(chanson, isPlaying, isPaused)
+        val isFavorite = favoriteIds.contains(chanson.id)
+        holder.bind(chanson, isPlaying, isPaused, isFavorite)
     }
 
     override fun getItemCount() = chansons.size
@@ -96,6 +124,11 @@ class ChansonAdapter(
     fun setChansons(newChansons: List<ChansonResponse>) {
         chansons.clear()
         chansons.addAll(newChansons)
+        notifyDataSetChanged()
+    }
+
+    fun updateFavorites(newFavoriteIds: Set<Long>) {
+        favoriteIds = newFavoriteIds
         notifyDataSetChanged()
     }
 
