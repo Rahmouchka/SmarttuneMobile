@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="til_confirm_password" type="id" />
+    <item name="btn_create_account" type="id" />
+    <item name="til_username" type="id" />
+    <item name="tv_artist_name" type="id" />
+    <item name="iv_notifications" type="id" />
+    <item name="card_stats" type="id" />
+    <item name="tv_plays_count" type="id" />
+    <item name="tv_followers_count" type="id" />
+    <item name="tv_tracks_count" type="id" />
+    <item name="tv_my_music_title" type="id" />
+    <item name="tv_manage" type="id" />
+    <item name="rv_my_music" type="id" />
+    <item name="ll_empty_state" type="id" />
+    <item name="nav_dashboard" type="id" />
+    <item name="nav_analytics" type="id" />
+    <item name="nav_music" type="id" />
+    <item name="nav_profile_artist" type="id" />
+    <item name="fab_upload" type="id" />
+</resources>

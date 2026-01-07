@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SmartTune</string>
+
+    <string-array name="genre_array">
+        <item>H</item>
+        <item>F</item>
+    </string-array>
+</resources>
+
