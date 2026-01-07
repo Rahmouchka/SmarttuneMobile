@@ -1,6 +1,8 @@
 package com.isetr.smarttune.ui.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,8 +59,39 @@ class ChansonListFragment : Fragment() {
         // Observer l'état du ViewModel
         observeViewModel()
 
-        // Charger les chansons aléatoires au démarrage
-        viewModel.loadRandomChansons("sad")
+        // Charger toutes les chansons au démarrage (avec query vide comme dans Postman)
+        viewModel.searchChansons("")
+
+        // Ajouter la barre de recherche depuis l'activity parent
+        setupSearchBar()
+    }
+
+    private fun setupSearchBar() {
+        // La barre de recherche est dans l'Activity parent (UserHomeActivity)
+        // On peut y accéder via binding si elle existe
+        try {
+            val parentActivity = requireActivity() as? com.isetr.smarttune.ui.user.UserHomeActivity
+            // Chercher la barre de recherche dans l'activity parent
+            val searchEditText = requireActivity().findViewById<android.widget.EditText>(
+                com.isetr.smarttune.R.id.et_search
+            )
+
+            if (searchEditText != null) {
+                searchEditText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                    override fun afterTextChanged(s: Editable?) {
+                        val query = s?.toString()?.trim() ?: ""
+                        // Envoyer la query telle quelle (vide pour toutes les chansons)
+                        viewModel.searchChansons(query)
+                    }
+                })
+            }
+        } catch (e: Exception) {
+            android.util.Log.d("ChansonListFragment", "SearchBar not found in parent activity")
+        }
     }
 
     private fun observeViewModel() {

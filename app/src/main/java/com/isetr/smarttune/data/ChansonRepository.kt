@@ -10,14 +10,23 @@ class ChansonRepository(context: Context) {
     // Fetch songs from API based on search query
     suspend fun searchChansons(query: String): Result<List<ChansonResponse>> {
         return try {
+            android.util.Log.d("ChansonRepository", "Searching chansons with query: '$query'")
             val response = api.searchChansons(query)
+            android.util.Log.d("ChansonRepository", "Response code: ${response.code()}")
+            android.util.Log.d("ChansonRepository", "Response successful: ${response.isSuccessful}")
+
             if (response.isSuccessful && response.body() != null) {
-                Result.success(response.body()!!)
+                val chansons = response.body()!!
+                android.util.Log.d("ChansonRepository", "Got ${chansons.size} chansons")
+                Result.success(chansons)
             } else {
+                val errorBody = response.errorBody()?.string() ?: "No error body"
+                android.util.Log.d("ChansonRepository", "Error body: $errorBody")
                 val errorMsg = "Erreur serveur: ${response.code()} - ${response.message()}"
                 Result.failure(Exception(errorMsg))
             }
         } catch (e: Exception) {
+            android.util.Log.e("ChansonRepository", "Exception: ${e.message}", e)
             val errorMsg = when {
                 e.message?.contains("Failed to connect") == true ->
                     "Impossible de se connecter au serveur.\n" +

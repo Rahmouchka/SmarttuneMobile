@@ -25,11 +25,7 @@ class ChansonViewModel(application: Application) : AndroidViewModel(application)
 
     // Rechercher des chansons via API
     fun searchChansons(query: String) {
-        if (query.isBlank()) {
-            _uiState.value = ChansonUiState.Idle
-            return
-        }
-
+        // NE PAS vérifier si la query est vide - on veut récupérer TOUTES les chansons avec ""
         _uiState.value = ChansonUiState.Loading
         viewModelScope.launch {
             val result = repository.searchChansons(query)
