@@ -38,15 +38,17 @@ class ChansonListFragment : Fragment() {
         val factory = ChansonViewModelFactory(requireActivity().application)
         viewModel = ViewModelProvider(this, factory).get(ChansonViewModel::class.java)
 
-        // Initialiser l'adapter
-        adapter = ChansonAdapter { chanson ->
-            Toast.makeText(
-                requireContext(),
-                "Lecture: ${chanson.titre}",
-                Toast.LENGTH_SHORT
-            ).show()
-            // Plus tard: implémenter la logique de lecture
-        }
+        // Initialiser l'adapter avec callbacks pour play et pause
+        adapter = ChansonAdapter(
+            onPlayClick = { chanson ->
+                android.util.Log.d("ChansonListFragment", "Play clicked")
+                viewModel.playChanson(chanson.id)
+            },
+            onPauseClick = { chanson ->
+                android.util.Log.d("ChansonListFragment", "Pause clicked")
+                viewModel.pauseChanson()
+            }
+        )
 
         // Configurer le RecyclerView
         binding.rvChansons.apply {
@@ -58,6 +60,41 @@ class ChansonListFragment : Fragment() {
 
         // Observer l'état du ViewModel
         observeViewModel()
+
+        // Observer l'état de lecture pour afficher le feedback
+        viewModel.isPlaying.observe(viewLifecycleOwner) { isPlaying ->
+            android.util.Log.d("ChansonListFragment", "isPlaying changed: $isPlaying")
+            // Mettre à jour l'adapter avec le nouvel état
+            val currentId = viewModel.currentPlayingId.value
+            if (currentId != null) {
+                adapter.updatePlayingState(currentId, isPlaying)
+            }
+            if (isPlaying) {
+                Toast.makeText(requireContext(), "Lecture en cours...", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.playerError.observe(viewLifecycleOwner) { error ->
+            android.util.Log.d("ChansonListFragment", "playerError: $error")
+            if (error != null) {
+                Toast.makeText(requireContext(), "Erreur audio: $error", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        viewModel.currentSongUrl.observe(viewLifecycleOwner) { url ->
+            android.util.Log.d("ChansonListFragment", "currentSongUrl: $url")
+        }
+
+        // Observer le chanson ID en lecture
+        viewModel.currentPlayingId.observe(viewLifecycleOwner) { chansonId ->
+            android.util.Log.d("ChansonListFragment", "currentPlayingId changed: $chansonId")
+            val isPlaying = viewModel.isPlaying.value ?: false
+            if (chansonId != null) {
+                adapter.updatePlayingState(chansonId, isPlaying)
+            } else {
+                adapter.updatePlayingState(null, false)
+            }
+        }
 
         // Charger toutes les chansons au démarrage (avec query vide comme dans Postman)
         viewModel.searchChansons("")

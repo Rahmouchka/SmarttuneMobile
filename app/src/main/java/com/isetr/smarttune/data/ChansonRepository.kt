@@ -69,5 +69,35 @@ class ChansonRepository(context: Context) {
             Result.failure(Exception(errorMsg))
         }
     }
+
+    // Fetch song details by ID (for playback)
+    suspend fun getChansonDetails(chansonId: Long): Result<ChansonResponse> {
+        return try {
+            android.util.Log.d("ChansonRepository", "Fetching chanson details: $chansonId")
+            val response = api.getChansonDetails(chansonId)
+            android.util.Log.d("ChansonRepository", "Response code: ${response.code()}")
+
+            if (response.isSuccessful && response.body() != null) {
+                val chanson = response.body()!!
+                android.util.Log.d("ChansonRepository", "Got chanson successfully")
+                Result.success(chanson)
+            } else {
+                val errorBody = response.errorBody()?.string() ?: "No error body"
+                android.util.Log.d("ChansonRepository", "Error body: $errorBody")
+                val errorMsg = "Erreur serveur: ${response.code()} - ${response.message()}"
+                Result.failure(Exception(errorMsg))
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("ChansonRepository", "Exception: ${e.message}", e)
+            val errorMsg = when {
+                e.message?.contains("Failed to connect") == true ->
+                    "Impossible de se connecter au serveur"
+                e.message?.contains("timeout") == true ->
+                    "Connexion au serveur trop lente"
+                else -> "Erreur réseau: ${e.message}"
+            }
+            Result.failure(Exception(errorMsg))
+        }
+    }
 }
 
