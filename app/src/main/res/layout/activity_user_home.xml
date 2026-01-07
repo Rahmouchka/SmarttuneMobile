@@ -173,9 +173,10 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_popular_title"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- RecyclerView pour les musiques -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_music"
+    <!-- Fragment Container pour la liste des chansons -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_chansons"
+        android:name="com.isetr.smarttune.ui.fragments.ChansonListFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"

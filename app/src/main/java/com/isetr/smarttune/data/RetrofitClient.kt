@@ -64,4 +64,7 @@ object RetrofitClient {
 
     fun getAuthApi() =
         getRetrofitInstance().create(AuthApi::class.java)
+
+    fun getChansonApi() =
+        getRetrofitInstance().create(ChansonApi::class.java)
 }

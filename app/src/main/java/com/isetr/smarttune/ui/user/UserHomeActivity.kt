@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.isetr.smarttune.databinding.ActivityUserHomeBinding
 import com.isetr.smarttune.ui.auth.LoginActivity
 import com.isetr.smarttune.viewModel.AuthViewModel
@@ -23,7 +22,6 @@ class UserHomeActivity : AppCompatActivity() {
 
         setupHeader()
         setupSearchBar()
-        setupRecyclerView()
     }
 
     private fun setupHeader() {
@@ -50,12 +48,7 @@ class UserHomeActivity : AppCompatActivity() {
 
     private fun setupSearchBar() {
         binding.etSearch.setOnClickListener {
-            // TODO: Implémenter la recherche
+            // TODO: Implémenter la recherche avancée
         }
-    }
-
-    private fun setupRecyclerView() {
-        binding.rvMusic.layoutManager = LinearLayoutManager(this)
-        // TODO: Ajouter l'adaptateur avec les données
     }
 }

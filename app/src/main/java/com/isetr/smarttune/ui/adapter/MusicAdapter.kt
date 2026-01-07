@@ -25,11 +25,11 @@ class MusicAdapter(
 
     inner class MusicViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivAlbumArt: ImageView = itemView.findViewById(R.id.iv_album_art)
-        val tvSongTitle: TextView = itemView.findViewById(R.id.tv_song_title)
-        val tvArtistName: TextView = itemView.findViewById(R.id.tv_artist_name)
+        val tvSongTitle: TextView = itemView.findViewById(R.id.tvTitle)
+        val tvArtistName: TextView = itemView.findViewById(R.id.tvArtist)
         val tvPlays: TextView = itemView.findViewById(R.id.tv_plays)
         val tvDuration: TextView = itemView.findViewById(R.id.tv_duration)
-        val ivPlay: ImageView = itemView.findViewById(R.id.iv_play)
+        val btnPlay: ImageView = itemView.findViewById(R.id.btnPlay)
         val ivMore: ImageView = itemView.findViewById(R.id.iv_more)
     }
 
@@ -53,7 +53,7 @@ class MusicAdapter(
         //     .placeholder(R.drawable.placeholder_album)
         //     .into(holder.ivAlbumArt)
 
-        holder.ivPlay.setOnClickListener {
+        holder.btnPlay.setOnClickListener {
             onPlayClick(music)
         }
 

@@ -46,10 +46,10 @@
             app:layout_constraintTop_toTopOf="@id/card_album_art"
             app:layout_constraintBottom_toBottomOf="@id/card_album_art"
             app:layout_constraintStart_toEndOf="@id/card_album_art"
-            app:layout_constraintEnd_toStartOf="@id/iv_play">
+            app:layout_constraintEnd_toStartOf="@id/btnPlay">
 
             <TextView
-                android:id="@+id/tv_song_title"
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nom de la chanson"
@@ -60,10 +60,10 @@
                 android:ellipsize="end" />
 
             <TextView
-                android:id="@+id/tv_artist_name"
+                android:id="@+id/tvArtist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nom de l'artiste"
+                android:text="Album ou Single"
                 android:textColor="#888888"
                 android:textSize="13sp"
                 android:layout_marginTop="4dp"
@@ -105,7 +105,7 @@
 
         <!-- Bouton Play -->
         <ImageView
-            android:id="@+id/iv_play"
+            android:id="@+id/btnPlay"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_play_circle_filled"
